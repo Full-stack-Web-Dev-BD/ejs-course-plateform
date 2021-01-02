@@ -1,0 +1,116 @@
+<div class="container">
+  <% if(result) { %>
+  <div class="container">
+    <h1 class="my-2"><%= result.title %></h1>
+  </div>
+  <div
+    class="row d-flex justify-content-center rounded-lg pt-2 pr-2"
+    style="background-color: white; border: 1px solid #e0e0e0"
+  >
+    <div class="col-lg-8">
+      <div class="container">
+        <h2 class="ml-2 my-2"><%=result.videos[0].title%></h2>
+      </div>
+      <iframe
+        id="youtube-frame"
+        width="100%"
+        height="400"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        src="<%=result.videos[0].url%>?autoplay=1&mute=0"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="col-lg-4 pl-0">
+      <% if(result.videos.length > 1) { %>
+      <h2 class="text-center my-2">More Videos</h2>
+      <div class="row" style="height: 400px; overflow-y: scroll">
+        <div class="col-12">
+          <% if(!isSubscribed) { %>
+          <div
+            data-toggle="modal"
+            data-target="#smallModalTwo"
+            class="lock-container"
+          >
+            <span class="lock"></span>
+          </div>
+          <% } %> <% result.videos.forEach((video, index) => { %>
+          <div class="row">
+            <div class="col">
+              <% if(index === 0) { %>
+              <div
+                data-label="<%=video.url%>"
+                class="card active-video video-links"
+                style="max-width: 350px"
+              >
+                <div class="row no-gutters">
+                  <div class="col-md-4 d-flex align-items-center">
+                    <img src="<%=result.picture%>" class="card-img" alt="..." />
+                  </div>
+                  <div class="col-md-8 d-flex align-items-center">
+                    <div class="card-body pt-1 pb-1">
+                      <h5 class="card-title"><%=video.title%></h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } else { %>
+              <div
+                data-label="<%=video.url%>"
+                class="card video-links"
+                style="max-width: 350px"
+              >
+                <div class="row no-gutters">
+                  <div class="col-md-4 d-flex align-items-center">
+                    <img src="<%=result.picture%>" class="card-img" alt="..." />
+                  </div>
+                  <div class="col-md-8 d-flex align-items-center">
+                    <div class="card-body pt-1 pb-1">
+                      <h5 class="card-title"><%=video.title%></h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+      <% } else { %>
+      <h2 class="text-center my-2">No more videos</h2>
+      <% } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-8 pl-0">
+      <div class="container prof-view rounded-top mt-2">
+        <div class="row m-1 my-2">
+          <h4 class="font-weight-bold">Course Description</h4>
+        </div>
+      </div>
+      <div class="container prof-view rounded-bottom">
+        <div class="row m-1 my-2">
+          <p class="font-weight-bold"><%=result.description%></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 pl-0 pr-0">
+      <div class="container prof-view rounded-top mt-2">
+        <div class="row m-1 my-2">
+          <a href="/profiles/<%=result.teacher.username%>">
+            <h4 class="font-weight-bold"><%=result.teacher.username%></h4>
+          </a>
+        </div>
+      </div>
+      <div class="container prof-view rounded-bottom">
+        <div class="row m-1 my-2">
+          <p class="font-weight-bold"><%=result.teacher.bio%></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% } else { %>
+  <h1>Error 404: No such course found</h1>
+  <% } %>
+</div>

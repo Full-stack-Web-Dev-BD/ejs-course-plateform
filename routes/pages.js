@@ -100,7 +100,8 @@ router.get('/submit-course-page', ensureAuthenticated,isSubscribed, (req, res) =
     let params = {
         user: user,
         title: 'Add new course',
-        isSubscribed:req.paymentStatus,
+        isSubscribed:true,
+        // isSubscribed:req.paymentStatus,
         style: page,
         js: page
     }
